@@ -1,5 +1,6 @@
 package com.example.demo.util;
 
+import com.example.demo.domain.WorkDetailDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -11,16 +12,20 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 
 @Slf4j
 @Component
 public class ExcelUtil {
+
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
     // 각 셀의 데이터타입에 맞게 값 가져오기
     public String getCellValue(XSSFCell cell) {
 
@@ -47,9 +52,9 @@ public class ExcelUtil {
     }
 
     // 엑셀파일의 데이터 목록 가져오기 (파라미터들은 위에서 설명함)
-    public List<Map<String, String>> getListData(MultipartFile file, int startRowNum, int columnLength) {
+    public List<WorkDetailDto> getListData(MultipartFile file, int startRowNum, int columnLength) {
 
-        List<Map<String, String>> excelList = new ArrayList<Map<String,String>>();
+        List<WorkDetailDto> excelList = new ArrayList<WorkDetailDto>();
 
         try {
             OPCPackage opcPackage = OPCPackage.open(file.getInputStream());
@@ -67,24 +72,18 @@ public class ExcelUtil {
             for (rowIndex = startRowNum; rowIndex < sheet.getLastRowNum() + 1; rowIndex++) {
                 XSSFRow row = sheet.getRow(rowIndex);
 
-                // 빈 행은 Skip
-                if (row.getCell(0) != null && !row.getCell(0).toString().isBlank()) {
+                WorkDetailDto workDetailDto = new WorkDetailDto();
 
-                    Map<String, String> map = new HashMap<String, String>();
-
-                    int cells = columnLength;
-
-                    for (columnIndex = 0; columnIndex <= cells; columnIndex++) {
-
-                        if (columnIndex == 0 || columnIndex == 1 || columnIndex == 2 || columnIndex == 7 || columnIndex == 8 || columnIndex == 9 || columnIndex == 11 || columnIndex == 14) {
-                            XSSFCell cell = row.getCell(columnIndex);
-                            map.put(String.valueOf(columnIndex), getCellValue(cell));
-//                            log.info(rowIndex + " 행 : " + columnIndex+ " 열 = " + getCellValue(cell));
-                        }
-                    }
-
-                    excelList.add(map);
-                }
+                workDetailDto.setDate(LocalDate.parse(getCellValue(row.getCell(0)), formatter));
+                workDetailDto.setName(getCellValue(row.getCell(2)));
+                workDetailDto.setBeginWork(getCellValue(row.getCell(7)));
+                workDetailDto.setEndWork(getCellValue(row.getCell(8)));
+                workDetailDto.setTotalWork(getCellValue(row.getCell(9)));
+                workDetailDto.setNightWork(getCellValue(row.getCell(16)));
+                workDetailDto.setHolidayWork(getCellValue(row.getCell(17)));
+                workDetailDto.setLeave(getCellValue(row.getCell(23)));
+                workDetailDto.setHolidayCheck(getCellValue(row.getCell(26)));
+                excelList.add(workDetailDto);
             }
 
         } catch (InvalidFormatException e) {
@@ -95,4 +94,5 @@ public class ExcelUtil {
 
         return excelList;
     }
+
 }
