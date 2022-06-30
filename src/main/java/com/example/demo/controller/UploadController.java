@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.service.HolidayService;
 import com.example.demo.service.UploadService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,10 +17,17 @@ import javax.servlet.http.HttpServletRequest;
 public class UploadController {
 
     private final UploadService uploadService;
+    private final HolidayService holidayService;
 
     @GetMapping
     public String uploadForm() {
         return "upload-form";
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        holidayService.holidayCalc();
+        return "redirect:/excel/upload";
     }
 
     @PostMapping
@@ -30,6 +38,7 @@ public class UploadController {
 
             uploadService.upload(file);
         }
-        return "upload-form";
+        return "redirect:/excel/upload";
     }
+
 }

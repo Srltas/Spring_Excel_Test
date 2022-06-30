@@ -78,11 +78,11 @@ public class ExcelUtil {
                 workDetailDto.setName(getCellValue(row.getCell(2)));
                 workDetailDto.setBeginWork(getCellValue(row.getCell(7)));
                 workDetailDto.setEndWork(getCellValue(row.getCell(8)));
-                workDetailDto.setTotalWork(getCellValue(row.getCell(9)));
+                workDetailDto.setTotalWork(getCellValue(row.getCell(14)));
                 workDetailDto.setNightWork(getCellValue(row.getCell(16)));
                 workDetailDto.setHolidayWork(getCellValue(row.getCell(17)));
                 workDetailDto.setLeave(getCellValue(row.getCell(23)));
-                workDetailDto.setHolidayCheck(getCellValue(row.getCell(26)));
+                workDetailDto.setHoliday(getCellValue(row.getCell(26)));
                 excelList.add(workDetailDto);
             }
 

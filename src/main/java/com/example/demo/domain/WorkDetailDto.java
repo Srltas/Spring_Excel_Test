@@ -31,7 +31,7 @@ public class WorkDetailDto {
 
     private int leave;
 
-    private String holidayCheck;
+    private boolean holiday;
 
     public void setDate(LocalDate date) {
         this.date = date;
@@ -50,7 +50,7 @@ public class WorkDetailDto {
     }
 
     public void setTotalWork(String totalWork) {
-        this.totalWork = changeMinutes(totalWork);
+        this.totalWork = stringToInt(totalWork);
     }
 
     public void setNightWork(String nightWork) {
@@ -65,8 +65,8 @@ public class WorkDetailDto {
         this.leave = stringToInt(leave);
     }
 
-    public void setHolidayCheck(String holidayCheck) {
-        this.holidayCheck = holidayCheck;
+    public void setHoliday(String holiday) {
+        this.holiday = holiday.equals("O") ? true : false;
     }
 
     public int changeMinutes(String time) {
