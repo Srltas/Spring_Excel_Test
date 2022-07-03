@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.domain.TotalLegalWorkTimeDto;
 import com.example.demo.domain.WorkDetail;
 import com.example.demo.repository.TotalLegalWorkTimeRepository;
+import com.example.demo.repository.UploadRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class TotalLegalWorkTimeService {
+
+    private final UploadRepository uploadRepository;
 
     private final TotalLegalWorkTimeRepository totalLegalWorkTimeRepository;
 
@@ -42,7 +45,7 @@ public class TotalLegalWorkTimeService {
 
     private List<WorkDetail> findAdminWorkList() {
         //admin 계정의 근무기록 가져오기
-        List<WorkDetail> adminList =  totalLegalWorkTimeRepository.findAdmin();
+        List<WorkDetail> adminList =  uploadRepository.find("admin");
         //새벽근무 확인을 위해서 다음 분기 첫날까지 근무기록이 있기 때문에 마지막 날은 빼준다. ex) 2분기(3월~6월) 시 7월 1일까지 근무기록이 있음
         adminList.remove(adminList.size() - 1);
         return adminList;

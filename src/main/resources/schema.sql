@@ -3,6 +3,23 @@ DROP TABLE IF EXISTS total_legal_work_time CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS holiday_calc CASCADE;
 
+CREATE TABLE total_user_data                                         -- 사용자 종합 시간 정보
+(
+    seq                  bigint      NOT NULL AUTO_INCREMENT,        -- PK
+    `date`               date        NOT NULL,                       -- 날짜(년-월-일)
+    quarter              char(1)     NOT NULL,                       -- 분기
+    `name`               varchar(10) NOT NULL,                       -- 이름
+    quarter_work         int         DEFAULT 0,                       -- 분기 근로시간 (내가 한 분기에 일한 시간??)
+    prescribed_over_work int         DEFAULT 0,                      -- 소정근로 연장시간 (일한 시간 - 휴가 > 분기 근로 시간 -> 일한 시간 - 휴가 - 분기 근로 시간)
+    legal_over_work      int         DEFAULT 0,                      -- 법정근로 연장시간 (일한 시간 - 휴가 > 법정 근로 시간 -> 일한 시간 - 휴가 - 법정 근로 시간)
+    night_work           int         DEFAULT 0,                      -- 야근 근로시간
+    holiday_work         int         DEFAULT 0,                      -- 휴일 근로시간
+    holiday_8H_over      int         DEFAULT 0,                      -- 공휴일 8시간 초과
+    compensation_leave   int         DEFAULT 0,                      -- 보상 휴가 시간
+    `leave`              int         NOT NULL,                       -- 사용한 휴가
+    PRIMARY KEY (seq)
+);
+
 CREATE TABLE sample
 (
     seq                 bigint      NOT NULL AUTO_INCREMENT,        -- PK
@@ -43,6 +60,6 @@ CREATE TABLE holiday_calc
     holiday_holiday     int         NOT NULL,                       -- 공휴일, 공휴일
     holiday_weekday     int         NOT NULL,                       -- 공휴일, 평일
     weekday_holiday     int         NOT NULL,                       -- 평일, 공휴일
-    holiday_8H_Over     int         NOT NULL,                       -- 공휴일 8시간 초과
+    holiday_8H_over     int         NOT NULL,                       -- 공휴일 8시간 초과
     PRIMARY KEY (seq)
 );
