@@ -1,6 +1,5 @@
 package com.example.demo.repository;
 
-import com.example.demo.domain.TotalLegalWorkTime;
 import com.example.demo.domain.TotalLegalWorkTimeDto;
 import com.example.demo.domain.WorkDetail;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +18,6 @@ import static com.example.demo.util.DateTimeUtils.timestampOf;
 public class TotalLegalWorkTimeRepository {
 
     private final JdbcTemplate jdbcTemplate;
-
-    public List<WorkDetail> findAdmin() {
-        return jdbcTemplate.query("SELECT * FROM sample WHERE name='admin'", mapper);
-    }
 
 //    public List<TotalLegalWorkTime> findAll() {
 //        return jdbcTemplate.query("SELECT * FROM total_legal_work_time", mapper);

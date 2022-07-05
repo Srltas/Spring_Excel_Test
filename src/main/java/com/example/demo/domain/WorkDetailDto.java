@@ -2,16 +2,19 @@ package com.example.demo.domain;
 
 import lombok.Getter;
 import lombok.ToString;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.concurrent.TimeUnit;
 
-import static org.apache.commons.lang3.math.NumberUtils.toInt;
-import static org.apache.commons.lang3.math.NumberUtils.toLong;
+import static org.apache.commons.lang3.math.NumberUtils.*;
 
 @ToString
 @Getter
 public class WorkDetailDto {
+
+    Logger log = LoggerFactory.getLogger(getClass());
 
     private static final long DEFAULT_MILLIS = 0;
 
@@ -51,6 +54,7 @@ public class WorkDetailDto {
 
     public void setTotalWork(String totalWork) {
         this.totalWork = stringToInt(totalWork);
+        log.info("totalWork: {}", this.totalWork);
     }
 
     public void setNightWork(String nightWork) {
@@ -74,7 +78,7 @@ public class WorkDetailDto {
             return 0;
 
         String[] timeArray = time.split(":");
-        return (toInt(timeArray[0]) * 60) + toInt(timeArray[1]);
+        return (toInt(timeArray[0]) * 60 * 60) + (toInt(timeArray[1]) * 60);
     }
 
     public int stringToInt(String millisString) {
@@ -82,10 +86,7 @@ public class WorkDetailDto {
     }
 
     private long millisToMinutes(long millis) {
-        return (
-            (TimeUnit.MILLISECONDS.toHours(millis) * 60) + TimeUnit.MILLISECONDS.toMinutes(millis) -
-                    TimeUnit.HOURS.toMinutes((TimeUnit.MILLISECONDS.toHours(millis)))
-        );
+        return TimeUnit.MILLISECONDS.toSeconds(millis);
     }
 
 }

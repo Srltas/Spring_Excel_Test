@@ -21,6 +21,5 @@ public class TotalUserDataService {
 
     public void finalCalculation() {
         List<UserDto> holidayList = holidayRepository.findAll();
-//        totalLegalWorkTimeRepository.
     }
 }

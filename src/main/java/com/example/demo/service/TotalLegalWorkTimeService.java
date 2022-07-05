@@ -45,7 +45,7 @@ public class TotalLegalWorkTimeService {
 
     private List<WorkDetail> findAdminWorkList() {
         //admin 계정의 근무기록 가져오기
-        List<WorkDetail> adminList =  uploadRepository.find("admin");
+        List<WorkDetail> adminList =  uploadRepository.findAdmin();
         //새벽근무 확인을 위해서 다음 분기 첫날까지 근무기록이 있기 때문에 마지막 날은 빼준다. ex) 2분기(3월~6월) 시 7월 1일까지 근무기록이 있음
         adminList.remove(adminList.size() - 1);
         return adminList;
