@@ -26,7 +26,7 @@ public class TotalLegalWorkTimeRepository {
     public void save(List<TotalLegalWorkTimeDto> list) {
         for (TotalLegalWorkTimeDto twtd : list) {
             jdbcTemplate.update(conn -> {
-                PreparedStatement ps = conn.prepareStatement("INSERT INTO total_legal_work_time(seq,date,quarter,total_work_time,legal_work_time) VALUES (null,?,?,?,?)", new String[]{"seq"});
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO total_legal_work_time(seq,[date],quarter,total_work_time,legal_work_time) VALUES (null,?,?,?,?)", new String[]{"seq"});
                 ps.setDate(1, timestampOf(twtd.getDate()));
                 ps.setString(2, twtd.getQuarter());
                 ps.setInt(3, twtd.getTotalWorkTime());

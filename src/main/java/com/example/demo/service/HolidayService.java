@@ -16,6 +16,7 @@ import java.util.List;
 public class HolidayService {
 
     private final HolidayRepository holidayRepository;
+
     private final UploadRepository uploadRepository;
 
     public void holidayCalc() {
@@ -49,9 +50,8 @@ public class HolidayService {
                     holidayCalcDtos.add(weekdayWeekday(workDetail));
                 }
             }
-
-            holidayRepository.save(holidayCalcDtos);
         }
+        holidayRepository.save(holidayCalcDtos);
     }
 
     private HolidayCalcDto weekdayWeekday(WorkDetail workDetail) {

@@ -54,7 +54,6 @@ public class WorkDetailDto {
 
     public void setTotalWork(String totalWork) {
         this.totalWork = stringToInt(totalWork);
-        log.info("totalWork: {}", this.totalWork);
     }
 
     public void setNightWork(String nightWork) {
@@ -88,5 +87,4 @@ public class WorkDetailDto {
     private long millisToMinutes(long millis) {
         return TimeUnit.MILLISECONDS.toSeconds(millis);
     }
-
 }

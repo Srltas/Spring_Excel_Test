@@ -17,5 +17,4 @@ public class TotalLegalWorkTimeDto {
 
     // TODO 법정근로시간을 쓸 때 소수점은 어떻게 처리하는지?
     private final int legalWorkTime;
-
 }

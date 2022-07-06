@@ -33,9 +33,6 @@ public class UploadController {
     @PostMapping
     public String saveFile(@RequestParam MultipartFile file, HttpServletRequest request) {
         if (!file.isEmpty()) {
-            String fileName = file.getOriginalFilename();
-            log.info("fileName : {}", fileName);
-
             uploadService.upload(file);
         }
         return "redirect:/excel/upload";

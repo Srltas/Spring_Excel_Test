@@ -21,6 +21,8 @@ public class UploadService {
 
     private final UploadRepository uploadRepository;
 
+    private final TotalLegalWorkTimeService totalLegalWorkTimeService;
+
     private final HolidayService holidayService;
 
     @Transactional
@@ -29,8 +31,10 @@ public class UploadService {
 
         List<WorkDetailDto> list = excelUtil.getListData(file, 4, 26);
 
-        log.debug("list values : {}", list);
-
         uploadRepository.save(list);
+
+        totalLegalWorkTimeService.totalLegalWorkTimeSave();
+
+        holidayService.holidayCalc();
     }
 }

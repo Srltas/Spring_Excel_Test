@@ -2,7 +2,6 @@ package com.example.demo.repository;
 
 import com.example.demo.domain.HolidayCalcDto;
 import com.example.demo.domain.UserDto;
-import com.example.demo.domain.WorkDetailDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -20,14 +19,14 @@ public class HolidayRepository {
     private final JdbcTemplate jdbcTemplate;
 
     public List<UserDto> findAll() {
-        return jdbcTemplate.query("SELECT seq, name FROM users ORDER BY name",mapper);
+        return jdbcTemplate.query("SELECT seq, [name] FROM users ORDER BY name",mapper);
     }
 
     public void save(List<HolidayCalcDto> list) {
 
         for (HolidayCalcDto holidayCalcDto : list) {
             jdbcTemplate.update(conn -> {
-                PreparedStatement ps = conn.prepareStatement("INSERT INTO holiday_calc(seq,date,name,holiday_holiday,holiday_weekday,weekday_holiday,holiday_8H_Over) VALUES (null,?,?,?,?,?,?)", new String[]{"seq"});
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO holiday_calc(seq,[date],[name],holiday_holiday,holiday_weekday,weekday_holiday,holiday_8H_Over) VALUES (null,?,?,?,?,?,?)", new String[]{"seq"});
                 ps.setDate(1, timestampOf(holidayCalcDto.getDate()));
                 ps.setString(2, holidayCalcDto.getName());
                 ps.setInt(3, holidayCalcDto.getHolidayHoliday());
