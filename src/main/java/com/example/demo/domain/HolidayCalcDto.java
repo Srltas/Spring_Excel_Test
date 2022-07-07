@@ -6,11 +6,10 @@ import lombok.Getter;
 
 import java.time.LocalDate;
 
+@Builder
 @AllArgsConstructor
-@Getter @Builder
+@Getter
 public class HolidayCalcDto {
-
-    private final long seq;
 
     private final LocalDate date;
 

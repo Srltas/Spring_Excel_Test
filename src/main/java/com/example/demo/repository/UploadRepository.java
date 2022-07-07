@@ -19,23 +19,27 @@ public class UploadRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
+    public List<WorkDetail> findAll() {
+        return jdbcTemplate.query("SELECT * FROM sample", mapper);
+    }
+
     public List<WorkDetail> find(String name) {
         return jdbcTemplate.query(
-                "SELECT * FROM sample WHERE [name]=? ORDER BY [date]",
+                "SELECT * FROM sample WHERE name=? ORDER BY date",
                 mapper,
                 name
         );
     }
 
     public List<WorkDetail> findAdmin() {
-        return jdbcTemplate.query("SELECT * FROM sample WHERE [name]='admin'", mapper);
+        return jdbcTemplate.query("SELECT * FROM sample WHERE name='admin'", mapper);
     }
 
     public void save(List<WorkDetailDto> list) {
 
         for (WorkDetailDto workDetail : list) {
             jdbcTemplate.update(conn -> {
-                PreparedStatement ps = conn.prepareStatement("INSERT INTO sample(seq, [date], [name],begin_work,end_work,total_work,night_work,holiday_work,[leave],holiday_check) VALUES (null,?,?,?,?,?,?,?,?,?)", new String[]{"seq"});
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO sample(date, name,begin_work,end_work,total_work,night_work,holiday_work,leave,holiday_check) VALUES (?,?,?,?,?,?,?,?,?)", new String[]{"seq"});
                 ps.setDate(1, timestampOf(workDetail.getDate()));
                 ps.setString(2, workDetail.getName());
                 ps.setInt(3, workDetail.getBeginWork());

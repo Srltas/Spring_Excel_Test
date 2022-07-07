@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -9,15 +10,19 @@ import java.time.LocalDate;
 @Builder
 @RequiredArgsConstructor
 @Getter
-public class TotalLegalWorkTime {
+public class HolidayCalc {
 
     private final long seq;
 
     private final LocalDate date;
 
-    private final String quarter;
+    private final String name;
 
-    private final int totalWorkTime;
+    private final int holidayHoliday;
 
-    private final int legalWorkTime;
+    private final int holidayWeekday;
+
+    private final int weekdayHoliday;
+
+    private final int holiday8hOver;
 }

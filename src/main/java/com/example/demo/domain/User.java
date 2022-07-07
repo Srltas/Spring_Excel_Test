@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @RequiredArgsConstructor
 @Getter
-public class UserDto {
+public class User {
 
     private final long seq;
 

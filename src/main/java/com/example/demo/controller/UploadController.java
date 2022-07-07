@@ -1,33 +1,26 @@
 package com.example.demo.controller;
 
-import com.example.demo.service.HolidayService;
 import com.example.demo.service.UploadService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/excel/upload")
 @Controller
 public class UploadController {
 
     private final UploadService uploadService;
-    private final HolidayService holidayService;
 
     @GetMapping
     public String uploadForm() {
         return "upload-form";
-    }
-
-    @GetMapping("/test")
-    public String test() {
-        holidayService.holidayCalc();
-        return "redirect:/excel/upload";
     }
 
     @PostMapping

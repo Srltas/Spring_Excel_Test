@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS holiday_calc CASCADE;
 CREATE TABLE total_user_data                                         -- 사용자 종합 시간 정보
 (
     seq                  bigint      NOT NULL AUTO_INCREMENT,        -- PK
-    `date`               date        NOT NULL,                       -- 날짜(년-월-일)
+    --`date`               date        NOT NULL,                       -- 날짜(년-월-일)
     quarter              char(1)     NOT NULL,                       -- 분기
     `name`               varchar(10) NOT NULL,                       -- 이름
     quarter_work         int         DEFAULT 0,                      -- 분기 근로시간 (내가 한 분기에 일한 시간??)

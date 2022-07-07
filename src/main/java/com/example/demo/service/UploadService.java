@@ -25,6 +25,8 @@ public class UploadService {
 
     private final HolidayService holidayService;
 
+    private final TotalUserDataService totalUserDataService;
+
     @Transactional
     public void upload(MultipartFile file) {
         ArrayList<WorkDetailDto> workDetails = new ArrayList<>();
@@ -36,5 +38,7 @@ public class UploadService {
         totalLegalWorkTimeService.totalLegalWorkTimeSave();
 
         holidayService.holidayCalc();
+
+        totalUserDataService.totalCalc();
     }
 }

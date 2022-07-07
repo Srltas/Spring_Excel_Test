@@ -1,10 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.HolidayCalcDto;
-import com.example.demo.domain.UserDto;
+import com.example.demo.domain.User;
 import com.example.demo.domain.WorkDetail;
 import com.example.demo.repository.HolidayRepository;
 import com.example.demo.repository.UploadRepository;
+import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +20,17 @@ public class HolidayService {
 
     private final UploadRepository uploadRepository;
 
+    private final UserRepository userRepository;
+
     public void holidayCalc() {
-        List<UserDto> userList = holidayRepository.findAll();
+        List<User> userList = userRepository.findAll();
 
         boolean holidayCheck = false;
         boolean nextHolidayCheck = false;
 
         List<HolidayCalcDto> holidayCalcDtos = new ArrayList<>();
 
-        for (UserDto userDto : userList) {
+        for (User userDto : userList) {
             List<WorkDetail> workDetails = uploadRepository.find(userDto.getName());
 
             for (int i = 0; i < workDetails.size(); i++) {
