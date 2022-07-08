@@ -36,11 +36,15 @@ public class TotalUserDataService {
             totalLegalTime = totalLegalTime + totalLegalWorkTime.getLegalWorkTime();
         }
 
+        log.info("분기 근로시간 : {}", totalWorkTime);
+        log.info("법정 근로시간 : {}", totalLegalTime);
+
         //
         List<TotalUserDataDto> totalUserDataDtos = new ArrayList<>();
 
         //각 유저마다 total 분기 근로 시간을 구함
         for (User user : userList) {
+            log.info("이름 : {}", user.getName());
             List<WorkDetail> uploadList = uploadRepository.find(user.getName());
             List<HolidayCalc> holidayList = holidayRepository.find(user.getName());
 
@@ -64,17 +68,21 @@ public class TotalUserDataService {
                 myHoliday8HOver += holidayCalc.getHoliday8hOver();
             }
 
-            //소정근로 연장시간
-            int myPrescribedOverWork = 0;
-            if (myQuarterWork > totalWorkTime) {
-                myPrescribedOverWork = myQuarterWork - totalLegalTime - totalWorkTime;
-            }
-
             //법정근로 연장시간
             int myLegalOverWork = 0;
             if ((myQuarterWork - myLeaveTime) > totalLegalTime) {
                 myLegalOverWork = myQuarterWork - myLeaveTime - totalLegalTime;
             }
+
+            log.info("법정근로 연장시간 : {}", myLegalOverWork);
+
+            //소정근로 연장시간
+            int myPrescribedOverWork = 0;
+            if (myQuarterWork > totalWorkTime) {
+                myPrescribedOverWork = myQuarterWork - myLegalOverWork - totalWorkTime;
+            }
+
+            log.info("소정근로 연장시간 : {}", myPrescribedOverWork);
 
             //분기 수당
             int myQuarterMoney = 0;

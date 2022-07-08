@@ -15,6 +15,8 @@ public class WorkDetail {
 
     private final LocalDate date;
 
+    private final String dayOfTheWeek;
+
     private final String name;
 
     private final int beginWork;

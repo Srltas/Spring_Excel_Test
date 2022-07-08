@@ -26,6 +26,7 @@ CREATE TABLE sample
 (
     seq                 bigint      NOT NULL AUTO_INCREMENT,        -- PK
     `date`              date        NOT NULL,                       -- 날짜(년-월-일)
+    day_of_the_week     char(1)     NOT NULL,                       -- 요일
     `name`              varchar(10) NOT NULL,                       -- 이름
     begin_work          int         NOT NULL,                       -- 출근 시간
     end_work            int         NOT NULL,                       -- 퇴근 시간

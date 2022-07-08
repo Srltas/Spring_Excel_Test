@@ -3,7 +3,6 @@ package com.example.demo.domain;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Builder
 @AllArgsConstructor

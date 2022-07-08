@@ -5,6 +5,7 @@ import com.example.demo.domain.WorkDetail;
 import com.example.demo.repository.TotalLegalWorkTimeRepository;
 import com.example.demo.repository.UploadRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class TotalLegalWorkTimeService {
@@ -30,8 +32,10 @@ public class TotalLegalWorkTimeService {
             int totalWorkTime = 0;
 
             for (WorkDetail workDetail : adminList)
-                if (workDetail.getDate().getMonthValue() == month && !workDetail.isHoliday())
+                if (workDetail.getDate().getMonthValue() == month && !workDetail.isHoliday() && !workDetail.getDayOfTheWeek().equals("토"))
                     totalWorkTime++;
+
+            log.debug("totalWorkTime : {}", totalWorkTime);
 
             LocalDate localDate = LocalDate.of(adminList.get(0).getDate().getYear(), month, 1);
             legalWorkTimeList
@@ -58,11 +62,11 @@ public class TotalLegalWorkTimeService {
     }
 
     private int totalMonthTime(int totalWorkTime) {
-        return totalWorkTime * 8 * 60;
+        return totalWorkTime * 8 * 60 * 60;
     }
 
     private int legalMonthTime(Integer lengthOfMonth) {
-        return (int) (((lengthOfMonth.doubleValue() * 40.0) / 7.0) * 60);
+        return (int) (((lengthOfMonth.doubleValue() * 40.0) / 7.0) * 60 * 60);
     }
 
     private String quarterlyCalculation(int firstMonth) {

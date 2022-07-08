@@ -74,6 +74,7 @@ public class ExcelUtil {
                 WorkDetailDto workDetailDto = new WorkDetailDto();
 
                 workDetailDto.setDate(LocalDate.parse(getCellValue(row.getCell(0)), formatter));
+                workDetailDto.setDayOfTheWeek(getCellValue(row.getCell(1)));
                 workDetailDto.setName(getCellValue(row.getCell(2)));
                 workDetailDto.setBeginWork(getCellValue(row.getCell(7)));
                 workDetailDto.setEndWork(getCellValue(row.getCell(8)));

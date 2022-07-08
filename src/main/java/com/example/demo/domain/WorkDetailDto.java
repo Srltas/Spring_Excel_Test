@@ -2,23 +2,22 @@ package com.example.demo.domain;
 
 import lombok.Getter;
 import lombok.ToString;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.concurrent.TimeUnit;
 
-import static org.apache.commons.lang3.math.NumberUtils.*;
+import static org.apache.commons.lang3.math.NumberUtils.toInt;
+import static org.apache.commons.lang3.math.NumberUtils.toLong;
 
 @ToString
 @Getter
 public class WorkDetailDto {
 
-    Logger log = LoggerFactory.getLogger(getClass());
-
-    private static final long DEFAULT_MILLIS = 0;
+    private final long DEFAULT_MILLIS = 0;
 
     private LocalDate date;
+
+    private String dayOfTheWeek;
 
     private String name;
 
@@ -38,6 +37,10 @@ public class WorkDetailDto {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public void setDayOfTheWeek(String dayOfTheWeek) {
+        this.dayOfTheWeek = dayOfTheWeek;
     }
 
     public void setName(String name) {

@@ -39,16 +39,17 @@ public class UploadRepository {
 
         for (WorkDetailDto workDetail : list) {
             jdbcTemplate.update(conn -> {
-                PreparedStatement ps = conn.prepareStatement("INSERT INTO sample(date, name,begin_work,end_work,total_work,night_work,holiday_work,leave,holiday_check) VALUES (?,?,?,?,?,?,?,?,?)", new String[]{"seq"});
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO sample(date,day_of_the_week,name,begin_work,end_work,total_work,night_work,holiday_work,leave,holiday_check) VALUES (?,?,?,?,?,?,?,?,?,?)", new String[]{"seq"});
                 ps.setDate(1, timestampOf(workDetail.getDate()));
-                ps.setString(2, workDetail.getName());
-                ps.setInt(3, workDetail.getBeginWork());
-                ps.setInt(4, workDetail.getEndWork());
-                ps.setInt(5, workDetail.getTotalWork());
-                ps.setInt(6, workDetail.getNightWork());
-                ps.setInt(7, workDetail.getHolidayWork());
-                ps.setInt(8, workDetail.getLeave());
-                ps.setString(9, workDetail.isHoliday() ? "O" : "X");
+                ps.setString(2, workDetail.getDayOfTheWeek());
+                ps.setString(3, workDetail.getName());
+                ps.setInt(4, workDetail.getBeginWork());
+                ps.setInt(5, workDetail.getEndWork());
+                ps.setInt(6, workDetail.getTotalWork());
+                ps.setInt(7, workDetail.getNightWork());
+                ps.setInt(8, workDetail.getHolidayWork());
+                ps.setInt(9, workDetail.getLeave());
+                ps.setString(10, workDetail.isHoliday() ? "O" : "X");
 
                 return ps;
             });
@@ -58,6 +59,7 @@ public class UploadRepository {
     static RowMapper<WorkDetail> mapper = (rs, rowNum) -> WorkDetail.builder()
             .seq(rs.getLong("seq"))
             .date(dateTimeOf(rs.getDate("date")))
+            .dayOfTheWeek(rs.getString("day_of_the_week"))
             .name(rs.getString("name"))
             .beginWork(rs.getInt("begin_work"))
             .endWork(rs.getInt("end_work"))
