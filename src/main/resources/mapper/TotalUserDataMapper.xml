@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.repository.TotalUserDataRepository">
+
+    <resultMap id="totalUserDataResultMap" type="com.example.demo.domain.TotalUserData">
+        <result column="seq" property="seq" />
+        <result column="quarter" property="quarter" />
+        <result column="name" property="name" />
+        <result column="quarter_work" property="quarterWork" />
+        <result column="prescribed_over_work" property="prescribedOverWork" />
+        <result column="legal_over_work" property="legalOverWork" />
+        <result column="night_work" property="nightWork" />
+        <result column="holiday_work" property="holidayWork" />
+        <result column="holiday_8H_over" property="holiday8HOver" />
+        <result column="leave" property="leave" />
+        <result column="compensation_leave" property="compensationLeave" />
+        <result column="quarter_money" property="quarterMoney" />
+        <result column="quarter_total" property="quarterTotal" />
+    </resultMap>
+
+    <select id="findAll" resultMap="totalUserDataResultMap">
+        SELECT
+             seq
+            ,quarter
+            ,name
+            ,quarter_work
+            ,prescribed_over_work
+            ,legal_over_work
+            ,night_work
+            ,holiday_work
+            ,holiday_8H_over
+            ,leave
+            ,compensation_leave
+            ,quarter_money
+            ,quarter_total
+        FROM total_user_data
+    </select>
+
+    <insert id="save" parameterType="com.example.demo.domain.TotalUserDataDto">
+        INSERT INTO total_user_data(
+             quarter
+            ,name
+            ,quarter_work
+            ,prescribed_over_work
+            ,legal_over_work
+            ,night_work
+            ,holiday_work
+            ,holiday_8H_over
+            ,leave
+            ,compensation_leave
+            ,quarter_money
+            ,quarter_total
+        ) VALUES (
+             #{quarter}
+            ,#{name}
+            ,#{quarter_work}
+            ,#{prescribed_over_work}
+            ,#{legal_over_work}
+            ,#{night_work}
+            ,#{holiday_work}
+            ,#{holiday_8H_over}
+            ,#{leave}
+            ,#{compensation_leave}
+            ,#{quarter_money}
+            ,#{quarter_total}
+        )
+    </insert>
+</mapper>

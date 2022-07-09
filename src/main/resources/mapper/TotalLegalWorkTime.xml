@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.repository.TotalLegalWorkTimeRepository">
+
+    <resultMap id="totalLegalWorkTimeResultMap" type="com.example.demo.domain.TotalLegalWorkTime">
+        <result column="seq" property="seq" />
+        <result column="date" property="date" />
+        <result column="quarter" property="quarter" />
+        <result column="total_work_time" property="totalWorkTime" />
+        <result column="legal_work_time" property="legalWorkTime" />
+    </resultMap>
+
+    <select id="findAll" resultMap="totalLegalWorkTimeResultMap">
+        SELECT
+             seq
+            ,`date`
+            ,quarter
+            ,total_work_time
+            ,legal_work_time
+        FROM total_legal_work_time
+    </select>
+
+    <insert id="save" parameterType="com.example.demo.domain.TotalLegalWorkTimeDto">
+        INSERT INTO total_legal_work_time(
+             `date`
+            ,quarter
+            ,total_work_time
+            ,legal_work_time
+        ) VALUES (
+             #{date}
+            ,#{quarter}
+            ,#{totalWorkTime}
+            ,#{legalWorkTime}
+        )
+    </insert>
+</mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.repository.UploadRepository">
+
+    <resultMap id="workDetailResultMap" type="com.example.demo.domain.WorkDetail">
+        <result column="seq" property="seq" />
+        <result column="date" property="date" />
+        <result column="day_of_the_week" property="dayOfTheWeek" />
+        <result column="name" property="name" />
+        <result column="begin_work" property="beginWork" />
+        <result column="end_work" property="endWork" />
+        <result column="total_work" property="totalWork" />
+        <result column="night_work" property="nightWork" />
+        <result column="holiday_work" property="holidayWork" />
+        <result column="leave" property="leave" />
+        <result column="holiday_check" property="holiday" />
+    </resultMap>
+
+    <select id="findAll" resultMap="workDetailResultMap">
+        SELECT
+             seq
+            ,`date`
+            ,day_of_the_week
+            ,name
+            ,begin_work
+            ,end_work
+            ,total_work
+            ,night_work
+            ,holiday_work
+            ,leave
+            ,holiday_check
+        FROM sample
+    </select>
+
+    <select id="find" parameterType="String" resultMap="workDetailResultMap">
+        SELECT
+             seq
+            ,`date`
+            ,day_of_the_week
+            ,name
+            ,begin_work
+            ,end_work
+            ,total_work
+            ,night_work
+            ,holiday_work
+            ,leave
+            ,holiday_check
+        FROM sample
+        WHERE name=#{value}
+        ORDER BY `date`
+    </select>
+    
+    <select id="findAdmin" resultMap="workDetailResultMap">
+        SELECT
+             seq
+            ,`date`
+            ,day_of_the_week
+            ,name
+            ,begin_work
+            ,end_work
+            ,total_work
+            ,night_work
+            ,holiday_work
+            ,leave
+            ,holiday_check
+        FROM sample
+        WHERE name='admin'
+    </select>
+
+    <insert id="save" parameterType="com.example.demo.domain.WorkDetailDto">
+        INSERT INTO sample(
+             `date`
+            ,day_of_the_week
+            ,name
+            ,begin_work
+            ,end_work
+            ,total_work
+            ,night_work
+            ,holiday_work
+            ,leave
+            ,holiday_check
+        ) VALUES (
+             #{date}
+            ,#{dayOfTheWeek}
+            ,#{name}
+            ,#{beginWork}
+            ,#{endWork}
+            ,#{totalWork}
+            ,#{nightWork}
+            ,#{holidayWork}
+            ,#{leave}
+            ,#{holiday}
+        )
+    </insert>
+</mapper>

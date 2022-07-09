@@ -31,6 +31,8 @@ dependencies {
 
 	implementation 'cubrid:cubrid-jdbc:11.1.0.0027'
 
+	implementation group: 'org.mybatis', name: 'mybatis', version: '3.5.7'
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
