@@ -30,7 +30,7 @@ public class HolidayJdbcRepository implements HolidayRepository {
     public void save(List<HolidayCalcDto> list) {
         for (HolidayCalcDto holidayCalcDto : list) {
             jdbcTemplate.update(conn -> {
-                PreparedStatement ps = conn.prepareStatement("INSERT INTO holiday_calc(date,name,holiday_holiday,holiday_weekday,weekday_holiday,holiday_8H_Over) VALUES (?,?,?,?,?,?)", new String[]{"seq"});
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO holiday_calc(date,name,holiday_holiday,holiday_weekday,weekday_holiday,holiday_8H_over) VALUES (?,?,?,?,?,?)", new String[]{"seq"});
                 ps.setDate(1, timestampOf(holidayCalcDto.getDate()));
                 ps.setString(2, holidayCalcDto.getName());
                 ps.setInt(3, holidayCalcDto.getHolidayHoliday());

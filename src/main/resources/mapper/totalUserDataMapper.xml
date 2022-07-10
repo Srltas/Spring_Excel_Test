@@ -53,19 +53,20 @@
             ,compensation_leave
             ,quarter_money
             ,quarter_total
-        ) VALUES (
-             #{quarter}
-            ,#{name}
-            ,#{quarter_work}
-            ,#{prescribed_over_work}
-            ,#{legal_over_work}
-            ,#{night_work}
-            ,#{holiday_work}
-            ,#{holiday_8H_over}
-            ,#{leave}
-            ,#{compensation_leave}
-            ,#{quarter_money}
-            ,#{quarter_total}
-        )
+        ) VALUES
+        <foreach collection="list" item="totalUserDataDto" separator=",">
+            (#{totalUserDataDto.quarter}
+            ,#{totalUserDataDto.name}
+            ,#{totalUserDataDto.quarterWork}
+            ,#{totalUserDataDto.prescribedOverWork}
+            ,#{totalUserDataDto.legalOverWork}
+            ,#{totalUserDataDto.nightWork}
+            ,#{totalUserDataDto.holidayWork}
+            ,#{totalUserDataDto.holiday8HOver}
+            ,#{totalUserDataDto.leave}
+            ,#{totalUserDataDto.compensationLeave}
+            ,#{totalUserDataDto.quarterMoney}
+            ,#{totalUserDataDto.quarterTotal})
+        </foreach>
     </insert>
 </mapper>

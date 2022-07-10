@@ -7,7 +7,7 @@
 
     <resultMap id="holidayCalcResultMap" type="com.example.demo.domain.HolidayCalc">
         <result column="seq" property="seq" />
-        <result column="date" property="date" />
+        <result column="days" property="date" />
         <result column="name" property="name" />
         <result column="holiday_holiday" property="holidayHoliday" />
         <result column="holiday_weekday" property="holidayWeekday" />
@@ -18,43 +18,45 @@
     <select id="findAll" resultMap="holidayCalcResultMap">
         SELECT
              seq
-            ,`date`
+            ,days
             ,name
             ,holiday_holiday
             ,holiday_weekday
             ,weekday_holiday
-            ,holiday_8H_Over
+            ,holiday_8H_over
         FROM holiday_calc
     </select>
 
     <select id="find" parameterType="String" resultMap="holidayCalcResultMap">
         SELECT
              seq
-            ,`date`
+            ,days
             ,name
             ,holiday_holiday
             ,holiday_weekday
             ,weekday_holiday
-            ,holiday_8H_Over
+            ,holiday_8H_over
         FROM holiday_calc
         WHERE name=#{value}
     </select>
 
     <insert id="save" parameterType="com.example.demo.domain.HolidayCalcDto">
         INSERT INTO holiday_calc(
-             `date`
+             days
             ,name
             ,holiday_holiday
             ,holiday_weekday
             ,weekday_holiday
-            ,holiday_8H_Over
-        ) VALUES (
-             #{date}
-            ,#{name}
-            ,#{holidayHoliday}
-            ,#{holidayWeekday}
-            ,#{weekdayHoliday}
-            ,#{holiday8hOver}
-        )
+            ,holiday_8H_over
+        ) VALUES
+            <foreach collection="list" item="holidayCalcDto" separator=",">
+                (#{holidayCalcDto.date}
+                ,#{holidayCalcDto.name}
+                ,#{holidayCalcDto.holidayHoliday}
+                ,#{holidayCalcDto.holidayWeekday}
+                ,#{holidayCalcDto.weekdayHoliday}
+                ,#{holidayCalcDto.holiday8hOver}
+                )
+            </foreach>
     </insert>
 </mapper>

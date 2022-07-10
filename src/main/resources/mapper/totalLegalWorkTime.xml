@@ -7,7 +7,7 @@
 
     <resultMap id="totalLegalWorkTimeResultMap" type="com.example.demo.domain.TotalLegalWorkTime">
         <result column="seq" property="seq" />
-        <result column="date" property="date" />
+        <result column="days" property="date" />
         <result column="quarter" property="quarter" />
         <result column="total_work_time" property="totalWorkTime" />
         <result column="legal_work_time" property="legalWorkTime" />
@@ -16,7 +16,7 @@
     <select id="findAll" resultMap="totalLegalWorkTimeResultMap">
         SELECT
              seq
-            ,`date`
+            ,days
             ,quarter
             ,total_work_time
             ,legal_work_time
@@ -25,15 +25,16 @@
 
     <insert id="save" parameterType="com.example.demo.domain.TotalLegalWorkTimeDto">
         INSERT INTO total_legal_work_time(
-             `date`
+             days
             ,quarter
             ,total_work_time
             ,legal_work_time
-        ) VALUES (
-             #{date}
-            ,#{quarter}
-            ,#{totalWorkTime}
-            ,#{legalWorkTime}
-        )
+        ) VALUES
+            <foreach collection="list" item="totalLegalWorkTimeDto" separator=",">
+                (#{totalLegalWorkTimeDto.date}
+                ,#{totalLegalWorkTimeDto.quarter}
+                ,#{totalLegalWorkTimeDto.totalWorkTime}
+                ,#{totalLegalWorkTimeDto.legalWorkTime})
+            </foreach>
     </insert>
 </mapper>

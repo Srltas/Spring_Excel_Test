@@ -35,10 +35,10 @@ public class HolidayService {
 
             for (int i = 0; i < workDetails.size(); i++) {
                 WorkDetail workDetail = workDetails.get(i);
-                holidayCheck = workDetail.isHoliday();
+                holidayCheck = workDetail.getHoliday();
 
                 if (i < workDetails.size() - 1) {
-                    nextHolidayCheck = workDetails.get(i + 1).isHoliday();
+                    nextHolidayCheck = workDetails.get(i + 1).getHoliday();
                 } else {
                     nextHolidayCheck = false;
                 }

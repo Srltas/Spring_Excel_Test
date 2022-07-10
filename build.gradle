@@ -31,10 +31,11 @@ dependencies {
 
 	implementation 'cubrid:cubrid-jdbc:11.1.0.0027'
 
-	implementation group: 'org.mybatis', name: 'mybatis', version: '3.5.7'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
+	implementation 'org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
 
 	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'com.h2database:h2:2.1.210'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

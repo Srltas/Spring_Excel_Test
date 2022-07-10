@@ -10,7 +10,7 @@ spring:
       path: /h2-console
   datasource:
     driver-class-name: org.h2.Driver
-    url: "jdbc:h2:mem:social_server;MODE=MYSQL;DB_CLOSE_DELAY=-1"
+    jdbc-url: "jdbc:h2:mem:social_server;MODE=MYSQL;DB_CLOSE_DELAY=-1"
     username: sa
 
   sql:
@@ -18,6 +18,6 @@ spring:
       platform: cubrid
       schema-locations: classpath:schema.sql
       data-locations: classpath:data-h2.sql
-
-mybatis:
-  mapper-locations: mapper/*.xml
+#
+#mybatis:
+#  mapper-locations: mapper/*.xml

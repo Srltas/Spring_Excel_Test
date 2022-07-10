@@ -7,7 +7,7 @@
 
     <resultMap id="workDetailResultMap" type="com.example.demo.domain.WorkDetail">
         <result column="seq" property="seq" />
-        <result column="date" property="date" />
+        <result column="days" property="date" />
         <result column="day_of_the_week" property="dayOfTheWeek" />
         <result column="name" property="name" />
         <result column="begin_work" property="beginWork" />
@@ -16,13 +16,13 @@
         <result column="night_work" property="nightWork" />
         <result column="holiday_work" property="holidayWork" />
         <result column="leave" property="leave" />
-        <result column="holiday_check" property="holiday" />
+        <result column="holiday_check" property="holiday" javaType="java.lang.Boolean" jdbcType="CHAR" typeHandler="com.example.demo.util.mybatis.CustomBooleanTypeHandler"/>
     </resultMap>
 
     <select id="findAll" resultMap="workDetailResultMap">
         SELECT
              seq
-            ,`date`
+            ,days
             ,day_of_the_week
             ,name
             ,begin_work
@@ -38,7 +38,7 @@
     <select id="find" parameterType="String" resultMap="workDetailResultMap">
         SELECT
              seq
-            ,`date`
+            ,days
             ,day_of_the_week
             ,name
             ,begin_work
@@ -50,13 +50,13 @@
             ,holiday_check
         FROM sample
         WHERE name=#{value}
-        ORDER BY `date`
+        ORDER BY days
     </select>
     
     <select id="findAdmin" resultMap="workDetailResultMap">
         SELECT
              seq
-            ,`date`
+            ,days
             ,day_of_the_week
             ,name
             ,begin_work
@@ -72,7 +72,7 @@
 
     <insert id="save" parameterType="com.example.demo.domain.WorkDetailDto">
         INSERT INTO sample(
-             `date`
+             days
             ,day_of_the_week
             ,name
             ,begin_work
@@ -82,17 +82,19 @@
             ,holiday_work
             ,leave
             ,holiday_check
-        ) VALUES (
-             #{date}
-            ,#{dayOfTheWeek}
-            ,#{name}
-            ,#{beginWork}
-            ,#{endWork}
-            ,#{totalWork}
-            ,#{nightWork}
-            ,#{holidayWork}
-            ,#{leave}
-            ,#{holiday}
-        )
+        ) VALUES
+            <foreach collection="list" item="workDetailDto" separator=",">
+                (#{workDetailDto.date}
+                ,#{workDetailDto.dayOfTheWeek}
+                ,#{workDetailDto.name}
+                ,#{workDetailDto.beginWork}
+                ,#{workDetailDto.endWork}
+                ,#{workDetailDto.totalWork}
+                ,#{workDetailDto.nightWork}
+                ,#{workDetailDto.holidayWork}
+                ,#{workDetailDto.leave}
+                ,#{workDetailDto.holiday, typeHandler=com.example.demo.util.mybatis.CustomBooleanTypeHandler}
+                )
+            </foreach>
     </insert>
 </mapper>

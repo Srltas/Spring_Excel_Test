@@ -32,7 +32,7 @@ public class TotalLegalWorkTimeService {
             int totalWorkTime = 0;
 
             for (WorkDetail workDetail : adminList)
-                if (workDetail.getDate().getMonthValue() == month && !workDetail.isHoliday() && !workDetail.getDayOfTheWeek().equals("토"))
+                if (workDetail.getDate().getMonthValue() == month && !workDetail.getHoliday() && !workDetail.getDayOfTheWeek().equals("토"))
                     totalWorkTime++;
 
             log.debug("totalWorkTime : {}", totalWorkTime);

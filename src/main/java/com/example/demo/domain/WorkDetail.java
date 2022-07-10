@@ -31,5 +31,5 @@ public class WorkDetail {
 
     private final int leave;
 
-    private final boolean holiday;
+    private final Boolean holiday;
 }
